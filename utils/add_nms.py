@@ -103,9 +103,9 @@ class RegisterNMS(object):
         }
 
         if self.precision == "fp32":
-            dtype_output = np.float32
+            dtype_output = np.float32  # type: ignore
         elif self.precision == "fp16":
-            dtype_output = np.float16
+            dtype_output = np.float16  # type: ignore
         else:
             raise NotImplementedError(f"Currently not supports precision: {self.precision}")
 
@@ -141,15 +141,3 @@ class RegisterNMS(object):
         self.graph.outputs = op_outputs
 
         self.infer()
-
-    def save(self, output_path):
-        """
-        Save the ONNX model to the given location.
-        Args:
-            output_path: Path pointing to the location where to write
-                out the updated ONNX model.
-        """
-        self.graph.cleanup().toposort()
-        model = gs.export_onnx(self.graph)
-        onnx.save(model, output_path)
-        LOGGER.info(f"Saved ONNX model to {output_path}")
