@@ -681,11 +681,11 @@ if __name__ == '__main__':
                 npr.seed(int(time.time()))
                 g = np.array([x[0] for x in meta.values()])  # gains 0-1
                 ng = len(meta)
-                v = np.ones(ng)
-                while all(v == 1):  # mutate until a change occurs (prevent duplicates)
-                    v = (g * (npr.random(ng) < mp) * npr.randn(ng) * npr.random() * s + 1).clip(0.3, 3.0)
+                v_ones = np.ones(ng)
+                while all(v_ones == 1):  # mutate until a change occurs (prevent duplicates)
+                    v_ones = (g * (npr.random(ng) < mp) * npr.randn(ng) * npr.random() * s + 1).clip(0.3, 3.0)
                 for i, k in enumerate(hyp.keys()):  # plt.hist(v.ravel(), 300)
-                    hyp[k] = float(x[i + 7] * v[i])  # mutate
+                    hyp[k] = float(x[i + 7] * v_ones[i])  # mutate
 
             # Constrain to limits
             for k, v in meta.items():
