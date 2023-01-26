@@ -1,5 +1,6 @@
-import argparse
 import time
+import logging
+import argparse
 from pathlib import Path
 
 import cv2
@@ -14,6 +15,7 @@ from utils.general import check_img_size, check_requirements, check_imshow, non_
 from utils.plots import plot_one_box
 from utils.torch_utils import select_device, load_classifier, time_synchronized, TracedModel
 
+logger = logging.getLogger(__name__)
 
 def detect(save_img=False):
     source, weights, view_img, save_txt, imgsz, trace = opt.source, opt.weights, opt.view_img, opt.save_txt, opt.img_size, not opt.no_trace
@@ -184,7 +186,7 @@ if __name__ == '__main__':
     parser.add_argument('--exist-ok', action='store_true', help='existing project/name ok, do not increment')
     parser.add_argument('--no-trace', action='store_true', help='don`t trace model')
     opt = parser.parse_args()
-    print(opt)
+    logger.info(opt)
     #check_requirements(exclude=('pycocotools', 'thop'))
 
     with torch.no_grad():

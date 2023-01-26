@@ -1,7 +1,8 @@
-import argparse
 import sys
 import time
+import logging
 import warnings
+import argparse
 
 sys.path.append('./')  # to run '$ python *.py' files in subdirectories
 
@@ -15,6 +16,8 @@ from utils.activations import Hardswish, SiLU
 from utils.general import set_logging, check_img_size
 from utils.torch_utils import select_device
 from utils.add_nms import RegisterNMS
+
+logger = logging.getLogger(__name__)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -38,7 +41,7 @@ if __name__ == '__main__':
     opt.img_size *= 2 if len(opt.img_size) == 1 else 1  # expand
     opt.dynamic = opt.dynamic and not opt.end2end
     opt.dynamic = False if opt.dynamic_batch else opt.dynamic
-    print(opt)
+    logger.info(opt)
     set_logging()
     t = time.time()
 
