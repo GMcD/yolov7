@@ -519,7 +519,7 @@ class LoadImagesAndLabels(Dataset):  # for training/testing
         x['results'] = nf, nm, ne, nc, i + 1
         x['version'] = 0.1  # cache version
         torch.save(x, path)  # save for next time
-        logging.info(f'{prefix}New cache created: {path}')
+        print(f'{prefix}New label cache created: {path}')
         return x
 
     def __len__(self):
