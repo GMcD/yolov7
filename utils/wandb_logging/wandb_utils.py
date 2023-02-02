@@ -15,7 +15,7 @@ import wandb
 
 WANDB_ARTIFACT_PREFIX = 'wandb-artifact://'
 
-import pyyolo.consts as consts
+import pyyolo.yolo.consts as consts
 
 def remove_prefix(from_string, prefix=WANDB_ARTIFACT_PREFIX):
     return from_string[len(prefix):]
