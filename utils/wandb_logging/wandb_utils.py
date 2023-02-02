@@ -15,6 +15,7 @@ import wandb
 
 WANDB_ARTIFACT_PREFIX = 'wandb-artifact://'
 
+import pyyolo.consts as consts
 
 def remove_prefix(from_string, prefix=WANDB_ARTIFACT_PREFIX):
     return from_string[len(prefix):]
@@ -90,7 +91,7 @@ class WandbLogger():
         elif self.wandb:
             self.wandb_run = wandb.init(config=opt,
                                         resume="allow",
-                                        project='YOLOR' if opt.project == 'runs/train' else Path(opt.project).stem,
+                                        project='YOLOR' if opt.project == consts.PROJECT_TRAIN else Path(opt.project).stem,
                                         name=name,
                                         job_type=job_type,
                                         id=run_id) if not wandb.run else wandb.run
@@ -113,7 +114,7 @@ class WandbLogger():
         check_dataset(self.data_dict)
         config_path = self.log_dataset_artifact(opt.data,
                                                 opt.single_cls,
-                                                'YOLOR' if opt.project == 'runs/train' else Path(opt.project).stem)
+                                                'YOLOR' if opt.project == consts.PROJECT_TRAIN else Path(opt.project).stem)
         print("Created dataset config file ", config_path)
         with open(config_path) as f:
             wandb_data_dict = yaml.load(f, Loader=yaml.SafeLoader)
